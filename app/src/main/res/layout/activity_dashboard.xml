@@ -6,6 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DashboardActivity"
-    android:background="@color/gray">
+    android:background="@color/gray"
+    android:paddingTop="10dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingBottom="10dp">
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/white"
+        android:text="Cari..."
+        android:textAlignment="viewStart"
+        android:textColor="@color/black"/>
 
 </RelativeLayout>
