@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.HomeFragment">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/main_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@android:color/transparent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/et_search"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="15dp"
+                            android:layout_weight="6"
+                            android:background="@drawable/rounded_edittext"
+                            android:drawableLeft="@drawable/ic_search"
+                            android:drawablePadding="10dp"
+                            android:hint="Cari disini..."
+                            android:imeOptions="actionSearch"
+                            android:inputType="text"
+                            android:paddingLeft="20dp"
+                            android:paddingTop="15dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="15dp"
+                            android:textColorHint="#ffc1c0c0" />
+                    </LinearLayout>
+                </androidx.appcompat.widget.Toolbar>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Berita dan Events"
+                    android:textColor="@android:color/black"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_margin="15dp">
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Menu Utama"
+                    android:textColor="@android:color/black"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="15dp">
+
+                        <LinearLayout
+                            android:id="@+id/menu_perajin"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="5dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_menu_perajin" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="List Perajin"
+                                android:textAlignment="center" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/menu_pelayanan"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="5dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_menu_pelayanan" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Pelayanan"
+                                android:textAlignment="center" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Kategori Keramik"
+                    android:textColor="@android:color/black"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_kategori"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:clickable="true" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+</FrameLayout>

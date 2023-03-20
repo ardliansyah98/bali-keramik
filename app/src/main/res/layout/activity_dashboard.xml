@@ -2,5 +2,15 @@
 <RelativeLayout android:focusableInTouchMode="true" android:descendantFocusability="beforeDescendants" android:layout_width="fill_parent" android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
     <FrameLayout android:id="@+id/frame_utama" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_above="@+id/bottomnav_main" app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-    <com.google.android.material.bottomnavigation.BottomNavigationView android:id="@id/bottomnav_main" android:background="@color/purple_700" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true" app:itemIconTint="@drawable/selector_bottomnavbar" app:itemTextColor="@drawable/selector_bottomnavbar" app:labelVisibilityMode="labeled" app:layout_behavior="@string/appbar_scrolling_view_behavior" app:menu="@menu/bottom_menu_main" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@id/bottomnav_main"
+        android:background="@color/purple_700"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:itemIconTint="@drawable/selector_bottomnavbar"
+        app:itemTextColor="@drawable/selector_bottomnavbar"
+        app:labelVisibilityMode="labeled"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:menu="@menu/bottom_menu_main" />
 </RelativeLayout>
