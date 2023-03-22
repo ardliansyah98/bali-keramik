@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.HomeFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -66,6 +67,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_margin="15dp">
+
+                    <com.smarteist.autoimageslider.SliderView
+                        android:id="@+id/img_slider_events"
+                        app:sliderAnimationDuration="600"
+                        app:sliderAutoCycleDirection="back_and_forth"
+                        app:sliderAutoCycleEnabled="true"
+                        app:sliderIndicatorMargin="15dp"
+                        app:sliderIndicatorOrientation="horizontal"
+                        app:sliderIndicatorPadding="3dp"
+                        app:sliderIndicatorRadius="2dp"
+                        app:sliderIndicatorSelectedColor="#ff5a5a5a"
+                        app:sliderIndicatorUnselectedColor="#ffffffff"
+                        app:sliderScrollTimeInSec="5"
+                        app:sliderStartAutoCycle="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
 
                 </androidx.cardview.widget.CardView>
 

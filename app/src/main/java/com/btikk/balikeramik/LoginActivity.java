@@ -34,6 +34,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login() {
         startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
-        finish();
+        //finish();
     }
 }

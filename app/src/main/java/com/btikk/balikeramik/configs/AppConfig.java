@@ -2,7 +2,7 @@ package com.btikk.balikeramik.configs;
 
 public class AppConfig {
     public String BaseUrl(String url) {
-        String urlresult = "https://bali-keramik.000webhostapp.com/" + url;
+        String urlresult = "http://192.168.1.8/balikeramik/" + url;
         return urlresult;
     }
 
