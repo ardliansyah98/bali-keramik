@@ -8,13 +8,20 @@
     tools:context=".RegistrasiActivity"
     android:background="@color/gray">
 
+    <include
+        android:id="@+id/loading_page"
+        layout="@layout/item_loading"
+        android:visibility="gone"
+        />
+
     <ImageView
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="1000px"
         android:layout_alignParentTop="true"
         android:src="@drawable/images"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        />
 
     <androidx.cardview.widget.CardView
         android:layout_width="900px"
@@ -24,136 +31,142 @@
         android:backgroundTint="@color/white"
         app:cardCornerRadius="10dp">
 
-        <RelativeLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/TvLogin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="20dp"
-                android:text="SIGN UP"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="@color/design_default_color_primary"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/TilNamaLengkap"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/TvLogin"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:layout_height="wrap_content">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/TxtNamaLengkap"
+                <TextView
+                    android:id="@+id/TvLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="SIGN UP"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/design_default_color_primary"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TilNamaLengkap"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white"
-                    android:inputType="text"
-                    android:hint="Nama Lenakgp"/>
+                    android:layout_below="@id/TvLogin"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/TxtNamaLengkap"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:inputType="text"
+                        android:hint="Nama Lenakgp"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/TilEmailLogin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/TilNamaLengkap"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/TxtEmailLogin"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TilEmailRegister"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white"
-                    android:inputType="textEmailAddress"
-                    android:hint="Email"/>
+                    android:layout_below="@id/TilNamaLengkap"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/TxtEmailRegister"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:inputType="textEmailAddress"
+                        android:hint="Email"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/TilNoTelp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/TilEmailLogin"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/TxtNoTelp"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TilNoTelp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white"
-                    android:inputType="number"
-                    android:hint="No. Telp"/>
+                    android:layout_below="@id/TilEmailRegister"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/TxtNoTelp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:inputType="number"
+                        android:hint="No. Telp"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/TilPasswordRegistrasi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/TilNoTelp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
-                app:passwordToggleEnabled="true">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/TxtPasswordRegistrasi"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TilPasswordRegistrasi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white"
-                    android:hint="Password"
-                    android:inputType="textPassword"
-                    />
+                    android:layout_below="@id/TilNoTelp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    app:passwordToggleEnabled="true">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/TxtPasswordRegistrasi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:hint="Password"
+                        android:inputType="textPassword"
+                        />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/TilConfirmPasswordRegistrasi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/TilPasswordRegistrasi"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
-                app:passwordToggleEnabled="true">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/TxtConfirmPasswordRegistrasi"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TilConfirmPasswordRegistrasi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/white"
-                    android:hint="Confirm Password"
-                    android:inputType="textPassword"
-                    />
+                    android:layout_below="@id/TilPasswordRegistrasi"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    app:passwordToggleEnabled="true">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/TxtConfirmPasswordRegistrasi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:hint="Confirm Password"
+                        android:inputType="textPassword"
+                        />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnRegistrasi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="SIGN UP"
-                android:layout_below="@id/TilConfirmPasswordRegistrasi"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginTop="35dp"
-                android:layout_marginBottom="20dp"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-        </RelativeLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRegistrasi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="SIGN UP"
+                    android:layout_below="@id/TilConfirmPasswordRegistrasi"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginBottom="20dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"/>
+
+            </RelativeLayout>
+
+        </ScrollView>
 
     </androidx.cardview.widget.CardView>
 

@@ -26,4 +26,20 @@ public class Events {
     public String getGambar() {
         return gambar;
     }
+
+    public void setId_event(int id_event) {
+        this.id_event = id_event;
+    }
+
+    public void setJudul(String judul) {
+        this.judul = judul;
+    }
+
+    public void setKonten(String konten) {
+        this.konten = konten;
+    }
+
+    public void setGambar(String gambar) {
+        this.gambar = gambar;
+    }
 }
