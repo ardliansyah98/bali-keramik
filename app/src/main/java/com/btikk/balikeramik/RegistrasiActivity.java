@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -12,6 +13,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.btikk.balikeramik.configs.AppConfig;
+import com.btikk.balikeramik.configs.GetDate;
+import com.btikk.balikeramik.configs.MyVolleySingleton;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -23,7 +26,7 @@ import java.util.Map;
 
 public class RegistrasiActivity extends AppCompatActivity {
     private AppConfig appConfig = new AppConfig();
-    private TextInputLayout TILNama, TILEmail, TILNoTelp, TILPassword;
+    private TextInputLayout TILNama, TILEmail, TILNoTelp, TILPassword, TILPassword2;
     private TextInputEditText EtNama, EtEmail, EtNoTelp, EtPassword, EtPassword2;
     private MaterialButton btnRegister;
     private RelativeLayout loadingPage;
@@ -37,6 +40,7 @@ public class RegistrasiActivity extends AppCompatActivity {
         TILEmail = (TextInputLayout) findViewById(R.id.TilEmailRegister);
         TILNoTelp = (TextInputLayout) findViewById(R.id.TilNoTelp);
         TILPassword = (TextInputLayout) findViewById(R.id.TilPasswordRegistrasi);
+        TILPassword2 = (TextInputLayout) findViewById(R.id.TilConfirmPasswordRegistrasi);
         EtNama = findViewById(R.id.TxtNamaLengkap);
         EtEmail = findViewById(R.id.TxtEmailRegister);
         EtNoTelp = findViewById(R.id.TxtNoTelp);
@@ -52,11 +56,31 @@ public class RegistrasiActivity extends AppCompatActivity {
     }
 
     private void register() {
-        String nama = EtNama.getText().toString();
-        String email = EtEmail.getText().toString();
-        String noTelp = EtNoTelp.getText().toString();
-        String password = EtPassword.getText().toString();
-        String password2 = EtPassword2.getText().toString();
+        String nama = EtNama.getText().toString().trim();
+        String email = EtEmail.getText().toString().trim();
+        String noTelp = EtNoTelp.getText().toString().trim();
+        String password = EtPassword.getText().toString().trim();
+        String password2 = EtPassword2.getText().toString().trim();
+
+        if(TextUtils.isEmpty(nama)){
+            TILNama.setError("Nama tidak boleh kosong!");
+            TILNama.requestFocus();
+        } else if(TextUtils.isEmpty(email)){
+            TILEmail.setError("Email tidak boleh kosong!");
+            TILEmail.requestFocus();
+        } else if(TextUtils.isEmpty(noTelp)){
+            TILNoTelp.setError("Nomor Telepon tidak boleh kosong!");
+            TILNoTelp.requestFocus();
+        } else if(TextUtils.isEmpty(password)){
+            TILPassword.setError("Password tidak boleh kosong!");
+            TILPassword.requestFocus();
+        } else if(TextUtils.isEmpty(password2)){
+            TILPassword2.setError("Konfirmasi Password tidak boleh kosong!");
+            TILPassword2.requestFocus();
+        } else if(!password.equals(password2)){
+            TILPassword2.setError("Password tidak sama!");
+            TILPassword2.requestFocus();
+        }
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, appConfig.AuthUrl(), response -> {
             try {
@@ -64,7 +88,7 @@ public class RegistrasiActivity extends AppCompatActivity {
                 loadingPage.setVisibility(View.VISIBLE);
                 if(jsonObject.optString("error").equals("false")){
                     // success
-                    Toast.makeText(this, "Registrasi sukses!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Registrasi sukses!", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(this, LoginActivity.class);
                     startActivity(intent);
                     finish();
@@ -89,5 +113,6 @@ public class RegistrasiActivity extends AppCompatActivity {
                 return params;
             }
         };
+        MyVolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
     }
 }

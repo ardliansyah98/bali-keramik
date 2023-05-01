@@ -67,7 +67,7 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/white"
                         android:inputType="text"
-                        android:hint="Nama Lenakgp"/>
+                        android:hint="Nama Lengkap"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 

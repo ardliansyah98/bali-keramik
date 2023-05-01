@@ -133,6 +133,7 @@ public class HomeFragment extends Fragment {
                     kategoriAdapter.notifyDataSetChanged();
                 }
             } catch (Exception e) {
+                e.printStackTrace();
                 throw new RuntimeException(e);
             }
         }, error -> {
