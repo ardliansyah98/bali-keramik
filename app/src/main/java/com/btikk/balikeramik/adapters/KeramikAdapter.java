@@ -1,6 +1,9 @@
 package com.btikk.balikeramik.adapters;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.btikk.balikeramik.DetailsKeramikActivity;
 import com.btikk.balikeramik.R;
 import com.btikk.balikeramik.models.Keramik;
 import com.bumptech.glide.Glide;
@@ -40,7 +44,17 @@ public class KeramikAdapter extends RecyclerView.Adapter<KeramikAdapter.ViewHold
         holder.perajinKeramik.setText("Oleh: " + keramik.getNamaPerajin());
         holder.kategoriKeramik.setText("Diposting pada kategori " + keramik.getKategoriKeramik());
         holder.itemView.setOnClickListener(v -> {
-            
+            Intent intent = new Intent(v.getContext(), DetailsKeramikActivity.class);
+            intent.putExtra("id_keramik", keramik.getId());
+            intent.putExtra("nama_keramik", keramik.getNamaKeramik());
+            intent.putExtra("dimensi", keramik.getDimensiKeramik());
+            intent.putExtra("warna", keramik.getWarnaKeramik());
+            intent.putExtra("deskripsi", keramik.getDeskripsiKeramik());
+            intent.putExtra("nama_perajin", keramik.getNamaPerajin());
+            intent.putExtra("foto_perajin", keramik.getFotoPerajin());
+            intent.putExtra("kategori", keramik.getKategoriKeramik());
+            intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+            this.context.startActivity(intent);
         });
     }
 

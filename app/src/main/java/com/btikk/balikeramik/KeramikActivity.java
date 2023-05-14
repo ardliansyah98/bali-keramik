@@ -58,7 +58,6 @@ public class KeramikActivity extends AppCompatActivity {
         jumlahKategori.setText("Terdapat 50 data di bawah kategori berjudul " + nama);
 
         loadKeramik(idKategori);
-
     }
 
     private void loadKeramik(int id) {

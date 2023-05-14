@@ -86,7 +86,7 @@ public class HomeFragment extends Fragment {
                 Log.d("Response Object", "Event Object " + jsonObject);
                 if(jsonObject.optString("error").equals("false")){
                     JSONArray eventsArray = jsonObject.getJSONArray("events");
-                    // Log.d("Events object", "Event objscts" + eventsArray);
+                    Log.d("Events object", "Event objscts" + eventsArray);
                     for(int i = 0; i < eventsArray.length(); i++){
                         JSONObject eventObject = eventsArray.getJSONObject(i);
                         Events events = new Events(eventObject.getInt("id"),

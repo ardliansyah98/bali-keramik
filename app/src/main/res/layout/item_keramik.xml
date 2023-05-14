@@ -14,7 +14,7 @@
         <ImageView
             android:id="@+id/item_gambar_keramik"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="180dp"
             android:scaleType="centerCrop"
             android:src="@mipmap/ic_launcher" />
 
