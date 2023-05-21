@@ -8,6 +8,11 @@
         android:id="@+id/account_toolbar"
         layout="@layout/layout_toolbar" />
 
+    <include
+        android:id="@+id/not_logged_in"
+        layout="@layout/layout_not_logged_in"
+        android:visibility="gone"/>
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/sv_account"
         android:layout_width="match_parent"
@@ -126,7 +131,9 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.1"
-                        android:src="@drawable/ic_arrow_right" />
+                        android:src="@drawable/ic_arrow_right"
+                        />
+
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -245,9 +252,10 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/rounded_button"
                 android:text="Logout"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                />
+                 <!-- android:background="@drawable/rounded_button" -->
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </RelativeLayout>
