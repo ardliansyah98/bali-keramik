@@ -46,6 +46,12 @@ public class LoginActivity extends AppCompatActivity {
         etEmail = (TextInputEditText) findViewById(R.id.TxtEmailLogin);
         etPassword = (TextInputEditText) findViewById(R.id.TxtPasswordLogin);
 
+        // if logged in
+        if(SharedPrefManager.getInstance(this).isLoggedIn()){
+            startActivity(new Intent(this, DashboardActivity.class));
+            finish();
+        }
+
         // Linking to xml objects
         tvToRegister = (TextView) findViewById(R.id.TvToRegister);
         btnLogin = (Button) findViewById(R.id.btnLogin);
