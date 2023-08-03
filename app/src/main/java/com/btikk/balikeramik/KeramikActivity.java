@@ -59,7 +59,6 @@ public class KeramikActivity extends AppCompatActivity {
 
         loadKeramik(idKategori);
     }
-
     private void loadKeramik(int id) {
         keramikArrayList = new ArrayList<>();
         keramikAdapter = new KeramikAdapter(this, keramikArrayList);
@@ -89,7 +88,6 @@ public class KeramikActivity extends AppCompatActivity {
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-                throw new RuntimeException(e);
             }
         }, error -> {
             error.printStackTrace();

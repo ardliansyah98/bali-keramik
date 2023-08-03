@@ -15,6 +15,21 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".EventDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PerajinDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PelayananActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PerajinActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditAkunActivity"
+            android:exported="false" />
+        <activity
             android:name=".DetailsKeramikActivity"
             android:exported="false" />
         <activity
@@ -23,25 +38,20 @@
         <activity
             android:name=".DashboardActivity"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".RegistrasiActivity"
             android:exported="false"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
-
         <activity
             android:name=".LoginActivity"
             android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
-
-        </activity>
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
     </application>
 
 </manifest>

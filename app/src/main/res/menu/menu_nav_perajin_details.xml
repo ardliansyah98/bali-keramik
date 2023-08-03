@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:icon="@drawable/ic_produk_perajin" android:id="@+id/nav_products" android:title="Semua Produk"/>
+    <item android:icon="@drawable/ic_profil_perajin" android:id="@+id/nav_profil" android:title="Profil Perajin"/>
+    <item android:id="@+id/nav_buku_tamu" android:icon="@drawable/ic_buku" android:title="Buku Tamu"/>
+</menu>

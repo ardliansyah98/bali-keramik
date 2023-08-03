@@ -2,13 +2,22 @@ package com.btikk.balikeramik.models;
 
 public class Events {
     private int id_event;
-    private String judul, konten, gambar;
+    private String judul, konten, gambar, date;
 
-    public Events(int id_event, String judul, String konten, String gambar) {
+    public Events(int id_event, String judul, String konten, String gambar, String date) {
         this.id_event = id_event;
         this.judul = judul;
         this.konten = konten;
         this.gambar = gambar;
+        this.date = date;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public int getId_event() {

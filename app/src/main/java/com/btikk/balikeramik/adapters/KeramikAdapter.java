@@ -46,6 +46,7 @@ public class KeramikAdapter extends RecyclerView.Adapter<KeramikAdapter.ViewHold
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), DetailsKeramikActivity.class);
             intent.putExtra("id_keramik", keramik.getId());
+            intent.putExtra("id_perajin", keramik.getId_perajin());
             intent.putExtra("nama_keramik", keramik.getNamaKeramik());
             intent.putExtra("dimensi", keramik.getDimensiKeramik());
             intent.putExtra("warna", keramik.getWarnaKeramik());

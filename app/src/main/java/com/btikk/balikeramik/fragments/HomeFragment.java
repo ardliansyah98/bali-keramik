@@ -1,15 +1,18 @@
 package com.btikk.balikeramik.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -19,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.btikk.balikeramik.PerajinActivity;
 import com.btikk.balikeramik.R;
 import com.btikk.balikeramik.adapters.EventsAdapter;
 import com.btikk.balikeramik.adapters.KategoriAdapter;
@@ -26,6 +30,7 @@ import com.btikk.balikeramik.configs.AppConfig;
 import com.btikk.balikeramik.configs.MyVolleySingleton;
 import com.btikk.balikeramik.models.Events;
 import com.btikk.balikeramik.models.Kategori;
+import com.btikk.balikeramik.models.Keramik;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -45,6 +50,8 @@ public class HomeFragment extends Fragment {
     private RelativeLayout loadingPage;
     ArrayList<Events> eventsArrayList;
     ArrayList<Kategori> kategoriArrayList;
+    LinearLayout menuPerajin, menuPelayanan;
+    SwipeRefreshLayout refreshLayout;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -59,6 +66,22 @@ public class HomeFragment extends Fragment {
         sliderView = (SliderView) view.findViewById(R.id.img_slider_events);
         rvKategori = (RecyclerView) view.findViewById(R.id.rv_kategori);
         loadingPage = (RelativeLayout) view.findViewById(R.id.loading_page);
+        menuPerajin = view.findViewById(R.id.menu_perajin);
+        refreshLayout = view.findViewById(R.id.swipeRefreshHome);
+
+        menuPerajin.setOnClickListener(v -> {
+            startActivity(new Intent(getActivity().getApplicationContext(), PerajinActivity.class));
+        });
+
+        refreshLayout.setOnRefreshListener(() -> {
+            eventsArrayList.clear();
+            eventsAdapter.notifyDataSetChanged();
+            loadEvents();
+            kategoriArrayList.clear();
+            kategoriAdapter.notifyDataSetChanged();
+            loadKategori();
+            refreshLayout.setRefreshing(false);
+        });
 
         // Loading all data from database
         loadEvents();
@@ -92,7 +115,8 @@ public class HomeFragment extends Fragment {
                         Events events = new Events(eventObject.getInt("id"),
                                                    eventObject.getString("judul"),
                                                    eventObject.getString("konten"),
-                                                   appConfig.BaseUrl(eventObject.getString("gambar")));
+                                                   appConfig.BaseUrl(eventObject.getString("gambar")),
+                                                   eventObject.getString("date_created"));
                         this.eventsArrayList.add(events);
                     }
                     // Log.d("Events List", "Event List " + eventsArrayList);
@@ -134,7 +158,6 @@ public class HomeFragment extends Fragment {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                throw new RuntimeException(e);
             }
         }, error -> {
             error.printStackTrace();

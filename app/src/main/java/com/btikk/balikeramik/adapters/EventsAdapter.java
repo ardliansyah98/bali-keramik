@@ -1,5 +1,7 @@
 package com.btikk.balikeramik.adapters;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.btikk.balikeramik.EventDetailsActivity;
 import com.btikk.balikeramik.R;
 import com.btikk.balikeramik.models.Events;
 import com.bumptech.glide.Glide;
@@ -36,6 +40,16 @@ public class EventsAdapter extends SliderViewAdapter<EventsAdapter.EventsViewHol
         final Events event = this.events.get(position);
         Glide.with(this.context).load(event.getGambar()).into(viewHolder.gambar_events);
         viewHolder.judul_events.setText(event.getJudul());
+        viewHolder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), EventDetailsActivity.class);
+            intent.putExtra("id_event", event.getId_event());
+            intent.putExtra("judul", event.getJudul());
+            intent.putExtra("konten", event.getKonten());
+            intent.putExtra("tgl", event.getDate());
+            intent.putExtra("gambar", event.getGambar());
+            intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+            this.context.startActivity(intent);
+        });
     }
 
     @Override // androidx.viewpager.widget.PagerAdapter
