@@ -43,7 +43,7 @@ public class DetailsKeramikActivity extends AppCompatActivity {
     private AppConfig appConfig = new AppConfig();
     TextView txtDeskripsi, txtDimensi, txtKategori, txtNama, txtPerajin, txtPerajin2, txtkategori1, txtWarna;
     ImageView gambarPerajin;
-    CardView cvToPerajin;
+    CardView cvToPerajin, cvToKomentar;
     RecyclerView rvKomentar;
     ArrayList<Komentar> komentarArrayList;
     KomentarAdapter komentarAdapter;
@@ -66,6 +66,7 @@ public class DetailsKeramikActivity extends AppCompatActivity {
         this.txtDeskripsi = (TextView) findViewById(R.id.deskripsi_keramik);
         this.gambarPerajin = (ImageView) findViewById(R.id.gambar_perajin_keramik_details);
         this.cvToPerajin = findViewById(R.id.cv_to_perajin);
+        this.cvToKomentar = findViewById(R.id.cv_to_komentar);
         this.toolbar = (Toolbar) findViewById(R.id.ceramic_details_toolbar);
         rvKomentar = findViewById(R.id.rv_komentar);
         toolbar.setTitle("Detail Keramik");
@@ -89,6 +90,12 @@ public class DetailsKeramikActivity extends AppCompatActivity {
             Intent intent1 = new Intent(this, PerajinDetailsActivity.class);
             intent1.putExtra("id_perajin", idPerajin);
             startActivity(intent1);
+        });
+
+        cvToKomentar.setOnClickListener(v -> {
+            Intent intent2 = new Intent(this, KomentarActivity.class);
+            intent2.putExtra("id_keramik", idKeramik);
+            startActivity(intent2);
         });
 
         txtNama.setText(namaKeramik);
