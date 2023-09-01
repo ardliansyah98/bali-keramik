@@ -2,7 +2,7 @@ package com.btikk.balikeramik.configs;
 
 public class AppConfig {
     public String BaseUrl(String url) {
-        String urlresult = "http://192.168.1.3/balikeramik/" + url;
+        String urlresult = "http://192.168.1.8/balikeramik/" + url;
         return urlresult;
     }
 
@@ -83,4 +83,8 @@ public class AppConfig {
     }
 
     public String KomentarUrl(){return BaseUrl("mobile_api/Komentar.php");}
+
+    public String BalasanUrl(){
+        return BaseUrl("mobile_api/Balasan.php");
+    }
 }
