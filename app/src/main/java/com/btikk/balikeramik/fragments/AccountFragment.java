@@ -23,6 +23,7 @@ import com.btikk.balikeramik.EditAkunActivity;
 import com.btikk.balikeramik.LoginActivity;
 import com.btikk.balikeramik.R;
 import com.btikk.balikeramik.configs.AppConfig;
+import com.btikk.balikeramik.configs.GetDate;
 import com.btikk.balikeramik.configs.SharedPrefManager;
 import com.btikk.balikeramik.models.User;
 import com.bumptech.glide.Glide;
@@ -41,6 +42,7 @@ public class AccountFragment extends Fragment {
     private Toolbar toolbar;
     private ImageView gambarProfil;
     private AppConfig appConfig = new AppConfig();
+    GetDate getDate = new GetDate();
 
     public AccountFragment() {
         // Required empty public constructor
@@ -81,7 +83,7 @@ public class AccountFragment extends Fragment {
             final User user = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUser();
             this.tvNama.setText(user.getNama());
             this.tveEmail.setText(user.getEmail());
-            this.tvDate.setText(user.getDateCreated());
+            this.tvDate.setText(getDate.returnDate(user.getDateCreated()));
             this.tvNamaLengkap.setText(user.getNama());
             this.tvEmail1.setText(user.getEmail());
 

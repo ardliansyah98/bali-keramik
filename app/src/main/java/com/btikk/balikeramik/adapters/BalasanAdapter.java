@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.btikk.balikeramik.R;
 import com.btikk.balikeramik.models.Balasan;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -33,7 +34,16 @@ public class BalasanAdapter extends RecyclerView.Adapter<BalasanAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull BalasanAdapter.ViewHolder holder, int position) {
-
+        final Balasan balasan = this.balasanList.get(position);
+        Glide.with(this.context).load(balasan.getFoto_profil()).into(holder.fotoProfil);
+        holder.nama.setText(balasan.getNama());
+        holder.tgl.setText(balasan.getTgl());
+        if(!balasan.getNama_perajin().equals("null")){
+            holder.namaPerajin.setText(balasan.getNama_perajin());
+        } else {
+            holder.namaPerajin.setVisibility(View.GONE);
+        }
+        holder.balasan.setText(balasan.getBalasan());
     }
 
     @Override
@@ -46,6 +56,11 @@ public class BalasanAdapter extends RecyclerView.Adapter<BalasanAdapter.ViewHold
         TextView balasan, nama, namaPerajin, tgl;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            fotoProfil = itemView.findViewById(R.id.foto_profil_balasan);
+            balasan = itemView.findViewById(R.id.balasan_komentar_keramik);
+            nama = itemView.findViewById(R.id.txt_nama_pembalas);
+            namaPerajin = itemView.findViewById(R.id.txt_nama_perajin_balasan);
+            tgl = itemView.findViewById(R.id.txt_date_balasan);
         }
     }
 }

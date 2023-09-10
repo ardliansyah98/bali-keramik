@@ -6,11 +6,13 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.btikk.balikeramik.configs.AppConfig;
 import com.btikk.balikeramik.configs.SharedPrefManager;
 import com.btikk.balikeramik.models.User;
+import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -26,8 +28,7 @@ public class EditAkunActivity extends AppCompatActivity {
     TextInputEditText etPhone;
     // CircleImageView fotoProfil;
     RelativeLayout loading;
-    String nama;
-    String noHp;
+    ImageView gbrfotoProfil;
     Toolbar toolbar;
     User user;
 
@@ -44,6 +45,7 @@ public class EditAkunActivity extends AppCompatActivity {
         this.etPhone = (TextInputEditText) findViewById(R.id.et_no_hp);
         this.btnSimpan = (Button) findViewById(R.id.btn_save);
         this.btnGantiPassword = (Button) findViewById(R.id.btn_ganti_password);
+        this.gbrfotoProfil = findViewById(R.id.gambar_profil);
 
         this.toolbar.setTitle("Edit Akun");
 
@@ -57,5 +59,6 @@ public class EditAkunActivity extends AppCompatActivity {
         etNama.setText(user.getNama());
         etEmail.setText(user.getEmail());
         etPhone.setText(user.getNo_telp());
+        Glide.with(this).load(appConfig.BaseUrl(user.getFotoProfil())).into(gbrfotoProfil);
     }
 }

@@ -53,6 +53,12 @@ public class KomentarAdapter extends RecyclerView.Adapter<KomentarAdapter.ViewHo
         holder.itemView.setOnClickListener(v -> {
             //Toast.makeText(context, "Komentar telah terpilih", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(context, BalasanActivity.class);
+            intent.putExtra("id_komentar", komentar.getId());
+            intent.putExtra("nama_komentator", komentar.getNama());
+            intent.putExtra("komentar", komentar.getKomentar());
+            intent.putExtra("foto", komentar.getFoto_profil());
+            intent.putExtra("tgl", komentar.getDate_created());
+            intent.putExtra("namaPerajin", komentar.getNama_perajin());
             intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         });

@@ -24,7 +24,7 @@
                 app:cardCornerRadius="70dp">
 
                 <ImageView
-                    android:id="@+id/foto_profil_komentar"
+                    android:id="@+id/foto_profil_balasan"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/txt_nama_komentator"
+                        android:id="@+id/txt_nama_pembalas"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
@@ -71,7 +71,7 @@
                         android:layout_toRightOf="@id/txt_nama_komentator"/>
 
                     <TextView
-                        android:id="@+id/txt_date_komentar"
+                        android:id="@+id/txt_date_balasan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
@@ -84,7 +84,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/txt_nama_perajin_komentator"
+                    android:id="@+id/txt_nama_perajin_balasan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
@@ -96,12 +96,12 @@
                     />
 
                 <TextView
-                    android:id="@+id/komentar_keramik"
+                    android:id="@+id/balasan_komentar_keramik"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Komentar Keramik "
                     android:textColor="@color/black"
-                    android:layout_below="@id/txt_nama_perajin_komentator"
+                    android:layout_below="@id/txt_nama_perajin_balasan"
                     android:layout_marginTop="5dp"
                     />
 
