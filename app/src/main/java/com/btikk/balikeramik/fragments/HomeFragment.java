@@ -9,11 +9,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -24,6 +27,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.btikk.balikeramik.PerajinActivity;
 import com.btikk.balikeramik.R;
+import com.btikk.balikeramik.SearchKeramikActivity;
 import com.btikk.balikeramik.adapters.EventsAdapter;
 import com.btikk.balikeramik.adapters.KategoriAdapter;
 import com.btikk.balikeramik.configs.AppConfig;
@@ -52,6 +56,7 @@ public class HomeFragment extends Fragment {
     ArrayList<Kategori> kategoriArrayList;
     LinearLayout menuPerajin, menuPelayanan;
     SwipeRefreshLayout refreshLayout;
+    EditText etSearch;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -68,6 +73,7 @@ public class HomeFragment extends Fragment {
         loadingPage = (RelativeLayout) view.findViewById(R.id.loading_page);
         menuPerajin = view.findViewById(R.id.menu_perajin);
         refreshLayout = view.findViewById(R.id.swipeRefreshHome);
+        etSearch = view.findViewById(R.id.et_search);
 
         menuPerajin.setOnClickListener(v -> {
             startActivity(new Intent(getActivity().getApplicationContext(), PerajinActivity.class));
@@ -87,8 +93,24 @@ public class HomeFragment extends Fragment {
         loadEvents();
         loadKategori();
 
+        etSearch.setOnEditorActionListener((textView, i, keyEvent) -> {
+            if(i == 3){
+                cariProduk();
+                return true;
+            }
+            return false;
+        });
+
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void cariProduk() {
+        String cariNamaKeramik = etSearch.getText().toString().trim();
+        // Toast.makeText(getActivity().getApplicationContext(), "Anda mencari " + cariNamaKeramik, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity().getApplicationContext(), SearchKeramikActivity.class);
+        intent.putExtra("namaKeramik", cariNamaKeramik);
+        startActivity(intent);
     }
 
     private void loadEvents() {

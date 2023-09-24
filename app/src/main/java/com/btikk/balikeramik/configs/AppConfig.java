@@ -2,7 +2,7 @@ package com.btikk.balikeramik.configs;
 
 public class AppConfig {
     public String BaseUrl(String url) {
-        String urlresult = "http://192.168.12.1:8080/balikeramik/" + url;
+        String urlresult = "http://192.168.1.193:8080/balikeramik/" + url;
         return urlresult;
     }
 

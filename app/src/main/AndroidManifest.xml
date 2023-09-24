@@ -15,6 +15,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".PerajinEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SearchKeramikActivity"
+            android:exported="false" />
+        <activity
             android:name=".BalasanActivity"
             android:exported="false" />
         <activity

@@ -8,16 +8,21 @@ import androidx.fragment.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.btikk.balikeramik.configs.AppConfig;
 import com.btikk.balikeramik.configs.GetDate;
 import com.btikk.balikeramik.configs.MyVolleySingleton;
+import com.btikk.balikeramik.configs.SharedPrefManager;
 import com.btikk.balikeramik.fragments.PerajinProdukFragment;
 import com.btikk.balikeramik.fragments.PerajinProfilFragment;
+import com.btikk.balikeramik.models.User;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -38,6 +43,7 @@ public class PerajinDetailsActivity extends AppCompatActivity {
     TextView txtNamaPerajin, txtLokasi, txtPemilik, txtNoTelp, txtDate;
     ImageView fotoProfil;
     int idPerajin = 0;
+    String profilPerajin, fotoPerajin;
     GetDate getDate = new GetDate();
 
     @Override
@@ -60,6 +66,8 @@ public class PerajinDetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         idPerajin = intent.getIntExtra("id_perajin", 0);
+        profilPerajin = intent.getStringExtra("profil");
+        fotoPerajin = intent.getStringExtra("foto");
 
         // Populate data
         StringRequest stringRequest = new StringRequest(Request.Method.POST, appConfig.PerajinUrl(), response -> {
@@ -112,5 +120,34 @@ public class PerajinDetailsActivity extends AppCompatActivity {
 
     public int getIdPerajin(){
         return idPerajin;
+    }
+
+    public String getProfilPerajin(){
+        return profilPerajin;
+    }
+
+    public String getGambarPerajin(){
+        return fotoPerajin;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        User user = SharedPrefManager.getInstance(this).getUser();
+        if (SharedPrefManager.getInstance(this).isLoggedIn() && user.getId_perajin() != 0 && user.getId_perajin() == this.idPerajin){
+            getMenuInflater().inflate(R.menu.menu_toolbar_account, menu);
+            toolbar.setOnMenuItemClickListener(item -> PerajinDetailsActivity.this.onCreateOptionsMenu(item));
+            return true;
+        }
+        return true;
+    }
+
+    private boolean onCreateOptionsMenu(MenuItem item) {
+        if(item.getItemId() == R.id.nav_edit){
+            Intent intentPerajin = new Intent(this, PerajinEditActivity.class);
+            intentPerajin.putExtra("id", idPerajin);
+            startActivity(intentPerajin);
+            return true;
+        }
+        return true;
     }
 }

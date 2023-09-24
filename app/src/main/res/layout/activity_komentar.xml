@@ -23,25 +23,44 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/ll_komentar"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
             android:layout_alignParentBottom="true">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="5"
-                android:padding="5dp"
-                android:hint="Masukkan komentar"/>
+                android:padding="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_komentar"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:hint="Masukkan komentar"
+                    android:inputType="textMultiLine"
+                    android:minLines="1"
+                    android:maxLines="4"
+                    android:background="@drawable/rounded_edittext"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
+                android:id="@+id/btn_input_komentar"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_gravity="bottom"
+                android:background="@drawable/ic_send"
+                android:layout_marginLeft="5dp"
+                android:gravity="bottom"/>
 
         </LinearLayout>
 

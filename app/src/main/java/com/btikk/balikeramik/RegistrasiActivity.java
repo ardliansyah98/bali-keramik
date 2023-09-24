@@ -95,7 +95,6 @@ public class RegistrasiActivity extends AppCompatActivity {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                throw new RuntimeException(e);
             }
         }, error -> {
             error.printStackTrace();

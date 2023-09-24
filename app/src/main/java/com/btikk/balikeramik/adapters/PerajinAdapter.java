@@ -46,6 +46,8 @@ public class PerajinAdapter extends RecyclerView.Adapter<PerajinAdapter.ViewHold
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), PerajinDetailsActivity.class);
             intent.putExtra("id_perajin", perajin.getId());
+            intent.putExtra("profil", perajin.getDeskripsi_perajin());
+            intent.putExtra("foto", perajin.getFoto_profil());
             intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
             this.context.startActivity(intent);
         });
