@@ -1,5 +1,6 @@
 package com.btikk.balikeramik.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,13 +16,17 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.btikk.balikeramik.KeramikActivity;
+import com.btikk.balikeramik.KeramikAddActivity;
 import com.btikk.balikeramik.PerajinActivity;
 import com.btikk.balikeramik.PerajinDetailsActivity;
 import com.btikk.balikeramik.R;
 import com.btikk.balikeramik.adapters.KeramikAdapter;
 import com.btikk.balikeramik.configs.AppConfig;
 import com.btikk.balikeramik.configs.MyVolleySingleton;
+import com.btikk.balikeramik.configs.SharedPrefManager;
 import com.btikk.balikeramik.models.Keramik;
+import com.btikk.balikeramik.models.User;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +42,7 @@ public class PerajinProdukFragment extends Fragment {
     private RecyclerView rvProdukPerajin;
     List<Keramik> keramikList = new ArrayList();
     private AppConfig appConfig = new AppConfig();
+    FloatingActionButton fabAddKeramik;
 
     public PerajinProdukFragment() {
         // Required empty public constructor
@@ -48,6 +54,7 @@ public class PerajinProdukFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_perajin_produk, container, false);
         this.rvProdukPerajin = (RecyclerView) view.findViewById(R.id.rv_keramik_perajin);
+        fabAddKeramik = view.findViewById(R.id.fab_add_keramik);
         PerajinDetailsActivity activity = (PerajinDetailsActivity) getActivity();
 
         int idPerajin = activity.getIdPerajin();
@@ -93,6 +100,21 @@ public class PerajinProdukFragment extends Fragment {
             }
         };
         MyVolleySingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(stringRequest);
+
+        User user = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUser();
+        if (!SharedPrefManager.getInstance(getActivity().getApplicationContext()).isLoggedIn() || user.getId_perajin() != idPerajin || user.getId_perajin() == 0) {
+            fabAddKeramik.setVisibility(View.GONE);
+        } else {
+            fabAddKeramik.setVisibility(View.VISIBLE);
+            fabAddKeramik.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), KeramikAddActivity.class);
+                    intent.putExtra("id_perajin", idPerajin);
+                    startActivity(intent);
+                }
+            });
+        }
 
         return view;
     }

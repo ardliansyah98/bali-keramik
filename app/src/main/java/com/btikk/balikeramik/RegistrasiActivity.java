@@ -1,7 +1,9 @@
 package com.btikk.balikeramik;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -25,29 +27,31 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegistrasiActivity extends AppCompatActivity {
-    private AppConfig appConfig = new AppConfig();
+    private final AppConfig appConfig = new AppConfig();
     private TextInputLayout TILNama, TILEmail, TILNoTelp, TILPassword, TILPassword2;
     private TextInputEditText EtNama, EtEmail, EtNoTelp, EtPassword, EtPassword2;
     private MaterialButton btnRegister;
     private RelativeLayout loadingPage;
+    private LoginActivity loginActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrasi);
 
         // set objects
-        TILNama = (TextInputLayout) findViewById(R.id.TilNamaLengkap);
-        TILEmail = (TextInputLayout) findViewById(R.id.TilEmailRegister);
-        TILNoTelp = (TextInputLayout) findViewById(R.id.TilNoTelp);
-        TILPassword = (TextInputLayout) findViewById(R.id.TilPasswordRegistrasi);
-        TILPassword2 = (TextInputLayout) findViewById(R.id.TilConfirmPasswordRegistrasi);
+        TILNama = findViewById(R.id.TilNamaLengkap);
+        TILEmail = findViewById(R.id.TilEmailRegister);
+        TILNoTelp = findViewById(R.id.TilNoTelp);
+        TILPassword = findViewById(R.id.TilPasswordRegistrasi);
+        TILPassword2 = findViewById(R.id.TilConfirmPasswordRegistrasi);
         EtNama = findViewById(R.id.TxtNamaLengkap);
         EtEmail = findViewById(R.id.TxtEmailRegister);
         EtNoTelp = findViewById(R.id.TxtNoTelp);
         EtPassword = findViewById(R.id.TxtPasswordRegistrasi);
         EtPassword2 = findViewById(R.id.TxtConfirmPasswordRegistrasi);
         btnRegister = findViewById(R.id.btnRegistrasi);
-        loadingPage = (RelativeLayout) findViewById(R.id.loading_page);
+        loadingPage = findViewById(R.id.loading_page);
+        loginActivity = new LoginActivity();
         
         btnRegister.setOnClickListener(v -> {
             register();
@@ -56,6 +60,8 @@ public class RegistrasiActivity extends AppCompatActivity {
     }
 
     private void register() {
+        loadingPage.setVisibility(View.VISIBLE);
+        loginActivity.disableTouch();
         String nama = EtNama.getText().toString().trim();
         String email = EtEmail.getText().toString().trim();
         String noTelp = EtNoTelp.getText().toString().trim();
@@ -86,20 +92,45 @@ public class RegistrasiActivity extends AppCompatActivity {
             try {
                 JSONObject jsonObject = new JSONObject(response);
                 loadingPage.setVisibility(View.VISIBLE);
+                loginActivity.disableTouch();
                 if(jsonObject.optString("error").equals("false")){
                     // success
-                    Toast.makeText(this, "Registrasi sukses!", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
+                    // Toast.makeText(this, "Registrasi sukses!", Toast.LENGTH_LONG).show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setMessage("Akun berhasil dibuat!");
+                    builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(RegistrasiActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            dialog.dismiss();
+                            finish();
+                        }
+                    });
+                } else {
+                    AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+                    alertDialog.setTitle("Kesalahan");
+                    alertDialog.setMessage(jsonObject.getString("message"));
+                    alertDialog.setButton(-3, "Dimengerti", (dialog, which) -> {
+                        dialog.dismiss();
+                    });
+                    alertDialog.show();
+                    loadingPage.setVisibility(View.GONE);
+                    loginActivity.enableTouch();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }, error -> {
             error.printStackTrace();
-            Toast.makeText(this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            // Toast.makeText(this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Terjadi kesalahan : " + error.getMessage());
+            builder.setNegativeButton("OK", (dialog, which) -> {
+                dialog.dismiss();
+            });
             loadingPage.setVisibility(View.GONE);
+            loginActivity.enableTouch();
         }){
             @Override
             protected Map<String, String> getParams(){

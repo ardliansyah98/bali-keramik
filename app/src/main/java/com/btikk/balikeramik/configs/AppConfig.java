@@ -2,10 +2,9 @@ package com.btikk.balikeramik.configs;
 
 public class AppConfig {
     public String BaseUrl(String url) {
-        String urlresult = "http://192.168.1.193:8080/balikeramik/" + url;
+        String urlresult = "https://ecliptic-dawn.000webhostapp.com/" + url;
         return urlresult;
     }
-
     public String KategoriUrl() {
         return BaseUrl("mobile_api/Kategori.php");
     }

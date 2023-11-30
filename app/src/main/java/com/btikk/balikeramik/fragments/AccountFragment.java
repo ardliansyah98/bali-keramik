@@ -69,6 +69,7 @@ public class AccountFragment extends Fragment {
 
         btnToLogin.setOnClickListener(v -> {
             startActivity(new Intent(getActivity().getApplicationContext(), LoginActivity.class));
+            getActivity().finish();
         });
 
         btnLogout.setOnClickListener(v -> {
@@ -87,9 +88,9 @@ public class AccountFragment extends Fragment {
             this.tvNamaLengkap.setText(user.getNama());
             this.tvEmail1.setText(user.getEmail());
 
-            Glide.with(getActivity().getApplicationContext()).load(appConfig.BaseUrl(user.getFotoProfil())).into(gambarProfil);
-
-            Toast.makeText(getActivity().getApplicationContext(), "foto: " + user.getFotoProfil(), Toast.LENGTH_SHORT).show();
+            String foto = user.getFotoProfil();
+            // Toast.makeText(getActivity().getApplicationContext(), "foto = " + foto, Toast.LENGTH_SHORT).show();
+            Glide.with(getActivity().getApplicationContext()).load(appConfig.BaseUrl(foto)).placeholder(R.drawable.ic_account).error(R.drawable.ic_account).into(gambarProfil);
 
             if(user.getId_perajin() == 0){
                 cvPerajin.setVisibility(View.GONE);

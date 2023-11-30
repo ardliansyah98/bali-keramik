@@ -47,8 +47,9 @@ public class DetailsKeramikActivity extends AppCompatActivity {
     RecyclerView rvKomentar;
     ArrayList<Komentar> komentarArrayList;
     KomentarAdapter komentarAdapter;
-
     Toolbar toolbar;
+    int idKeramik = 0;
+    int idPerajin = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +77,11 @@ public class DetailsKeramikActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         Intent intent = getIntent();
-        int idKeramik = intent.getIntExtra("id_keramik", 0);
-        int idPerajin = intent.getIntExtra("id_perajin", 0);
+        idKeramik = intent.getIntExtra("id_keramik", 0);
+        idPerajin = intent.getIntExtra("id_perajin", 0);
+
+        Toast.makeText(this, "Id perajin = " + idPerajin, Toast.LENGTH_SHORT).show();
+
         String namaKeramik = intent.getStringExtra("nama_keramik");
         String dimensiKeramik = intent.getStringExtra("dimensi");
         String warnaKeramik = intent.getStringExtra("warna");
@@ -196,5 +200,11 @@ public class DetailsKeramikActivity extends AppCompatActivity {
             }
         };
         MyVolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 }

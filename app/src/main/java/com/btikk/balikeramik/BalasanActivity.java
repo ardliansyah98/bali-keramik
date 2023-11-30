@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import com.btikk.balikeramik.adapters.BalasanAdapter;
 import com.btikk.balikeramik.configs.AppConfig;
 import com.btikk.balikeramik.configs.GetDate;
 import com.btikk.balikeramik.configs.MyVolleySingleton;
+import com.btikk.balikeramik.configs.SharedPrefManager;
 import com.btikk.balikeramik.models.Balasan;
 import com.bumptech.glide.Glide;
 
@@ -39,6 +41,7 @@ public class BalasanActivity extends AppCompatActivity {
     AppConfig appConfig = new AppConfig();
     BalasanAdapter balasanAdapter;
     ArrayList<Balasan> balasanArrayList;
+    LinearLayout llBalasan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,13 @@ public class BalasanActivity extends AppCompatActivity {
         txtNamaPerajin = findViewById(R.id.txt_nama_perajin_komentator);
         txtKomentar = findViewById(R.id.komentar_keramik);
         rvBalasan = findViewById(R.id.rv_balasan_komentar);
+        llBalasan = findViewById(R.id.ll_balasan);
+
+        llBalasan.setVisibility(View.GONE);
+
+        if(SharedPrefManager.getInstance(this).isLoggedIn()){
+            llBalasan.setVisibility(View.VISIBLE);
+        }
 
         // get intent data
         Intent intent = getIntent();

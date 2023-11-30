@@ -48,6 +48,7 @@ public class PerajinAdapter extends RecyclerView.Adapter<PerajinAdapter.ViewHold
             intent.putExtra("id_perajin", perajin.getId());
             intent.putExtra("profil", perajin.getDeskripsi_perajin());
             intent.putExtra("foto", perajin.getFoto_profil());
+            intent.putExtra("email", perajin.getEmail());
             intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
             this.context.startActivity(intent);
         });

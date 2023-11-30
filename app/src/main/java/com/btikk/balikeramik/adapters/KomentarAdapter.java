@@ -41,7 +41,7 @@ public class KomentarAdapter extends RecyclerView.Adapter<KomentarAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull KomentarAdapter.ViewHolder holder, int position) {
         final Komentar komentar = this.komentarList.get(position);
-        Glide.with(this.context).load(komentar.getFoto_profil()).into(holder.fotoProfil);
+        Glide.with(this.context).load(komentar.getFoto_profil()).placeholder(R.drawable.ic_account).error(R.drawable.ic_account).into(holder.fotoProfil);
         holder.namaKomentator.setText(komentar.getNama());
         holder.tanggal.setText(komentar.getDate_created());
         if(!komentar.getNama_perajin().equals("null")){

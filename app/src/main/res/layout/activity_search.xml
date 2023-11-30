@@ -18,6 +18,15 @@
         android:id="@+id/toolbar_search"
         layout="@layout/layout_toolbar"/>
 
+    <TextView
+        android:id="@+id/jdl_pencarian"
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Berikut merupakan hasil pencarian dari "
+        android:textSize="20sp"
+        android:textColor="@color/black"/>
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

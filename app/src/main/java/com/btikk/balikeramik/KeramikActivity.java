@@ -36,6 +36,7 @@ public class KeramikActivity extends AppCompatActivity {
     private ArrayList<Keramik> keramikArrayList;
     private KeramikAdapter keramikAdapter;
     private AppConfig appConfig = new AppConfig();
+    String nama;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +51,11 @@ public class KeramikActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Toast.makeText(this, "idKategori = " + intent.getIntExtra("id", 0), Toast.LENGTH_SHORT).show();
         String gambar = intent.getStringExtra("gambar_kategori");
-        String nama = intent.getStringExtra("nama_kategori");
+        nama = intent.getStringExtra("nama_kategori");
         int idKategori = intent.getIntExtra("id", 0);
 
         Glide.with(this).load(gambar).into(gbrKategori);
         namaKategori.setText(nama);
-        jumlahKategori.setText("Terdapat 50 data di bawah kategori berjudul " + nama);
 
         loadKeramik(idKategori);
     }
@@ -68,12 +68,13 @@ public class KeramikActivity extends AppCompatActivity {
             try {
                 JSONObject jsonObject = new JSONObject(response);
                 Log.d("Response Object", "Keramik Object " + jsonObject);
+                jumlahKategori.setText("Terdapat " + jsonObject.optString("count") + " data di bawah kategori berjudul " + nama);
                 if(jsonObject.optString("error").equals("false")){
                     JSONArray keramikArray = jsonObject.getJSONArray("keramik");
                     for(int i = 0; i < keramikArray.length(); i++){
                         JSONObject keramikObject = keramikArray.getJSONObject(i);
                         Keramik keramik = new Keramik(keramikObject.getInt("id"),
-                                                      keramikObject.getInt("id_kategori"),
+                                                      keramikObject.getInt("id_perajin"),
                                                       keramikObject.getString("nama_keramik"),
                                                       keramikObject.getString("dimensi"),
                                                       keramikObject.getString("warna"),

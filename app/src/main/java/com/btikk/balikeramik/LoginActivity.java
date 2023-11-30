@@ -1,12 +1,17 @@
 package com.btikk.balikeramik;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
     TextInputEditText etEmail, etPassword;
     String email, password;
     AppConfig appConfig = new AppConfig();
+    RelativeLayout rlLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +51,9 @@ public class LoginActivity extends AppCompatActivity {
         TilPassword = (TextInputLayout) findViewById(R.id.TilPasswordLogin);
         etEmail = (TextInputEditText) findViewById(R.id.TxtEmailLogin);
         etPassword = (TextInputEditText) findViewById(R.id.TxtPasswordLogin);
+        rlLoading = findViewById(R.id.loading_page);
+
+        rlLoading.setVisibility(View.GONE);
 
         // if logged in
         if(SharedPrefManager.getInstance(this).isLoggedIn()){
@@ -68,6 +77,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login() {
+        rlLoading.setVisibility(View.VISIBLE);
+        disableTouch();
         email = etEmail.getText().toString().trim();
         password = etPassword.getText().toString().trim();
         TilEmail.clearFocus();
@@ -83,6 +94,8 @@ public class LoginActivity extends AppCompatActivity {
             StringRequest stringRequest = new StringRequest(Request.Method.POST, appConfig.AuthUrl(), response -> {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
+                    disableTouch();
+                    Log.d("Login Response", response);
                     if(jsonObject.optString("error").equals("false")){
                         // success
                         Intent intent = new Intent(this, DashboardActivity.class);
@@ -96,16 +109,35 @@ public class LoginActivity extends AppCompatActivity {
                                 userJson.getString("foto_profil"),
                                 userJson.getString("date_created"));
                         SharedPrefManager.getInstance(this).userLogin(user);
-                        finish();
+
                         startActivity(intent);
                         Log.d("User Account", userJson.toString());
+                        finish();
                     } else {
-                        Toast.makeText(this, "Error: " + jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(this, "Error: " + jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+                        alertDialog.setTitle("Kesalahan");
+                        alertDialog.setMessage(jsonObject.getString("message"));
+                        alertDialog.setButton(-3, "Dimengerti", (dialog, which) -> {
+                            dialog.dismiss();
+                        });
+                        alertDialog.show();
+                        rlLoading.setVisibility(View.GONE);
+                        enableTouch();
                     }
                 } catch (JSONException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
                 }
-            }, error -> error.printStackTrace()) {
+            }, error -> {
+                error.printStackTrace();
+                // Toast.makeText(this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Terjadi kesalahan : " + error.getMessage());
+                builder.setNegativeButton("OK", (dialog, which) -> dialog.dismiss());
+                builder.create();
+                rlLoading.setVisibility(View.GONE);
+                enableTouch();
+            }){
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<>();
@@ -119,5 +151,14 @@ public class LoginActivity extends AppCompatActivity {
             //finish();
             MyVolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
         }
+    }
+
+    public void disableTouch(){
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
+    public void enableTouch(){
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 }

@@ -1,11 +1,13 @@
 package com.btikk.balikeramik.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.btikk.balikeramik.KeramikGambarActivity;
 import com.btikk.balikeramik.R;
 import com.btikk.balikeramik.models.GambarKeramik;
 import com.bumptech.glide.Glide;
@@ -34,7 +36,10 @@ public class GambarKeramikAdapter extends SliderViewAdapter<GambarKeramikAdapter
         final GambarKeramik gambarKeramik = gambarKeramikList.get(position);
         Glide.with(context).load(gambarKeramik.getGambar()).into(viewHolder.gambarKeramikImage);
         viewHolder.gambarKeramikImage.setOnClickListener(v -> {
-
+            Intent intent = new Intent(v.getContext(), KeramikGambarActivity.class);
+            intent.putExtra("gambar", gambarKeramik.getGambar());
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            this.context.startActivity(intent);
         });
     }
 

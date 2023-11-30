@@ -13,6 +13,8 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -25,6 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.btikk.balikeramik.PelayananActivity;
 import com.btikk.balikeramik.PerajinActivity;
 import com.btikk.balikeramik.R;
 import com.btikk.balikeramik.SearchKeramikActivity;
@@ -72,11 +75,16 @@ public class HomeFragment extends Fragment {
         rvKategori = (RecyclerView) view.findViewById(R.id.rv_kategori);
         loadingPage = (RelativeLayout) view.findViewById(R.id.loading_page);
         menuPerajin = view.findViewById(R.id.menu_perajin);
+        menuPelayanan = view.findViewById(R.id.menu_pelayanan);
         refreshLayout = view.findViewById(R.id.swipeRefreshHome);
         etSearch = view.findViewById(R.id.et_search);
 
         menuPerajin.setOnClickListener(v -> {
             startActivity(new Intent(getActivity().getApplicationContext(), PerajinActivity.class));
+        });
+
+        menuPelayanan.setOnClickListener(v -> {
+            startActivity(new Intent(getActivity().getApplicationContext(), PelayananActivity.class));
         });
 
         refreshLayout.setOnRefreshListener(() -> {
@@ -122,10 +130,12 @@ public class HomeFragment extends Fragment {
         sliderView.startAutoCycle();
         // Showing Loading bar
         loadingPage.setVisibility(View.VISIBLE);
+        disableTouch();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, appConfig.EventsUrl(), response -> {
             Log.d("response", "Response Event " + response + "");
             // Hiding Loading bar
             loadingPage.setVisibility(View.GONE);
+            enableTouch();
             try {
                 JSONObject jsonObject = new JSONObject(response);
                 Log.d("Response Object", "Event Object " + jsonObject);
@@ -186,7 +196,17 @@ public class HomeFragment extends Fragment {
             Toast.makeText(getActivity().getApplicationContext(), "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             // Hiding Loading bar
             loadingPage.setVisibility(View.GONE);
+            enableTouch();
         });
         MyVolleySingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(stringRequest);
+    }
+
+    private void disableTouch(){
+        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                           WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
+    private void enableTouch(){
+        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 }

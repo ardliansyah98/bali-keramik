@@ -19,16 +19,17 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
-                android:layout_weight="1.3"
+                android:layout_weight="1"
                 android:layout_height="50dp"
-                app:cardCornerRadius="70dp">
+                app:cardCornerRadius="20dp">
 
                 <ImageView
                     android:id="@+id/foto_profil_komentar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@mipmap/ic_launcher"
+                    android:background="@color/black"/>
 
             </androidx.cardview.widget.CardView>
 

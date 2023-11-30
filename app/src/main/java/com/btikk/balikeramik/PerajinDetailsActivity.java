@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,8 +45,9 @@ public class PerajinDetailsActivity extends AppCompatActivity {
     TextView txtNamaPerajin, txtLokasi, txtPemilik, txtNoTelp, txtDate;
     ImageView fotoProfil;
     int idPerajin = 0;
-    String profilPerajin, fotoPerajin;
+    String profilPerajin, fotoPerajin, emailPerajin, noTelpPerajin;
     GetDate getDate = new GetDate();
+    ImageButton btnPerajinPhone, btnPerajinEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,9 @@ public class PerajinDetailsActivity extends AppCompatActivity {
         txtNoTelp = findViewById(R.id.txt_no_telp);
         fotoProfil = findViewById(R.id.gambar_perajin);
         txtDate = findViewById(R.id.txt_waktu_bergabung);
+        btnPerajinEmail = findViewById(R.id.perajin_email);
+        btnPerajinPhone = findViewById(R.id.perajin_phone);
+
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -68,12 +74,28 @@ public class PerajinDetailsActivity extends AppCompatActivity {
         idPerajin = intent.getIntExtra("id_perajin", 0);
         profilPerajin = intent.getStringExtra("profil");
         fotoPerajin = intent.getStringExtra("foto");
+        emailPerajin = intent.getStringExtra("email");
+
+        btnPerajinEmail.setOnClickListener(v -> {
+            Intent intentEmail = new Intent(Intent.ACTION_SENDTO);
+            intentEmail.setData(Uri.parse("mailto:" + emailPerajin));
+            intentEmail.putExtra(Intent.EXTRA_SUBJECT, "Saya ingin bertanya");
+            startActivity(intentEmail);
+        });
+
+        btnPerajinPhone.setOnClickListener(v -> {
+            Intent intentPhone = new Intent(Intent.ACTION_DIAL);
+            intentPhone.setData(Uri.parse("tel:" + noTelpPerajin));
+            startActivity(intentPhone);
+        });
+
+        Toast.makeText(this, "email: " + emailPerajin, Toast.LENGTH_SHORT).show();
 
         // Populate data
         StringRequest stringRequest = new StringRequest(Request.Method.POST, appConfig.PerajinUrl(), response -> {
             try {
                 JSONObject jsonObject = new JSONObject(response);
-                Log.d("Response Object", "Perajin Object " + jsonObject);
+                Log.d("Response Object", "Perajin Object: " + response);
                 if(jsonObject.optString("error").equals("false")){
                     JSONArray perajinArray = jsonObject.getJSONArray("perajin");
                     JSONObject perajinObject = perajinArray.getJSONObject(0);
@@ -83,13 +105,18 @@ public class PerajinDetailsActivity extends AppCompatActivity {
                     txtLokasi.setText(perajinObject.getString("alamat"));
                     txtNoTelp.setText("No Telp: " + perajinObject.getString("no_telp"));
                     txtDate.setText("Bergabung sejak " + getDate.returnDate(perajinObject.getString("date_created")));
+                    noTelpPerajin = perajinObject.getString("no_telp");
 
+                } else {
+                    Toast.makeText(this, "Error: " + jsonObject.getString("errorMessage"), Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }, error -> {
             error.printStackTrace();
+            Toast.makeText(this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
         }){
             @Override
             protected Map<String, String> getParams(){
